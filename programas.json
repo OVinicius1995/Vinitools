@@ -17,18 +17,18 @@
   },
   {
     "name": "Jira Video Compressor",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "category": "Compressão automática",
     "icon": "roller.svg",
     "summary": "Monitore uma pasta em segundo plano. Vídeos acima de 10 MB entram na fila de compressão e os originais ficam preservados.",
     "repo": "Compressor",
-    "file": "Compressor-0.2.0-Setup-x64.exe",
+    "file": "Compressor-0.3.0-Setup-x64.exe",
     "steps": [
       "Escolha a pasta de entrada e uma pasta diferente para os resultados. Clique em Salvar e iniciar. Você pode fechar a janela e acompanhar o programa pela bandeja do Windows.",
       "O Compressor espera cada arquivo terminar de ser gravado. Até 10 MB, copia o vídeo sem recodificar. Acima disso, comprime em MP4 sem áudio, visando 9,5 MB.",
       "O programa confere o limite antes de liberar o resultado e avisa quando estiver pronto. O processamento é local, sem enviar a gravação a um site."
     ],
-    "downloadUrl": "https://github.com/OVinicius1995/Compressor/releases/download/v0.2.0/Compressor-0.2.0-Setup-x64.exe",
+    "downloadUrl": "https://github.com/OVinicius1995/Compressor/releases/download/v0.3.0/Compressor-0.3.0-Setup-x64.exe",
     "installNote": "A primeira instalação precisa de internet para preparar os componentes de vídeo."
   }
 ]
