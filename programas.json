@@ -20,12 +20,12 @@
     "version": "0.3.0",
     "category": "Compressão automática",
     "icon": "roller.svg",
-    "summary": "Monitore uma pasta em segundo plano. Vídeos acima de 10 MB entram na fila de compressão e os originais ficam preservados.",
+    "summary": "O Jira da equipe aceita vídeos de até 20 MB por anexo. Para gravações maiores, o Compressor gera uma cópia menor em segundo plano e preserva o original.",
     "repo": "Compressor",
     "file": "Compressor-0.3.0-Setup-x64.exe",
     "steps": [
       "Escolha a pasta de entrada e uma pasta diferente para os resultados. Clique em Salvar e iniciar. Você pode fechar a janela e acompanhar o programa pela bandeja do Windows.",
-      "O Compressor espera cada arquivo terminar de ser gravado. Até 10 MB, copia o vídeo sem recodificar. Acima disso, comprime em MP4 sem áudio, visando 9,5 MB.",
+      "Na versão 0.3.0, o Compressor espera a gravação terminar. Ele copia arquivos de até 10 MB e compacta os maiores em MP4 sem áudio, com alvo de 9,5 MB.",
       "O programa confere o limite antes de liberar o resultado e avisa quando estiver pronto. O processamento é local, sem enviar a gravação a um site."
     ],
     "downloadUrl": "https://github.com/OVinicius1995/Compressor/releases/download/v0.3.0/Compressor-0.3.0-Setup-x64.exe",
