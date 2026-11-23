@@ -8,31 +8,52 @@
 <section id="programas" class="catalog"><div class="wrap"><div class="eyebrow">Downloads</div><div class="sectiontitle"><h2>Catálogo de programas</h2><span class="count">__COUNT__ disponíveis</span></div><div class="cards">__CARDS__</div></div></section>
 <section class="guide wrap" id="fluxo"><div class="eyebrow">Eagle Eyes + Compressor</div><h2>Uma pasta conecta os dois.</h2><p>Você pode usar cada programa por conta própria ou configurar este fluxo uma única vez.</p><div class="steps"><div class="step"><b>01 / CONFIGURAR</b><h4>Escolha as pastas</h4><p>Use a saída do Eagle Eyes como entrada do Compressor. Escolha outra pasta para os vídeos prontos e clique em “Salvar e iniciar”.</p></div><div class="step"><b>02 / GRAVAR</b><h4>Grave a tela</h4><p>Arraste para marcar a região ou pressione Espaço sobre o monitor desejado. Clique em Gravar e, ao terminar, em Parar e salvar.</p></div><div class="step"><b>03 / ANEXAR</b><h4>Anexe o vídeo ao Jira</h4><p>Se a gravação tiver até 20 MB, anexe o original direto à issue. Se for maior, aguarde o aviso do Compressor e use o vídeo da pasta de saída.</p></div></div></section></main><footer><div class="wrap"><span>ViniTools · por Vinicius Oliveira</span><a href="#programas">Downloads ↑</a></div></footer><script>for(const button of document.querySelectorAll('[data-mode]'))button.addEventListener('click',()=>{const capture=button.dataset.mode==='capture';document.getElementById('dial-title').textContent=capture?'Eagle Eyes':'Jira da equipe';document.getElementById('value').textContent=capture?'15':'20';document.getElementById('unit').textContent=capture?'fps':'MB';document.getElementById('caption').textContent=capture?'quadros gravados por segundo':'limite por vídeo';document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)))})</script><script>const numberFormat = new Intl.NumberFormat('pt-BR');
 
-async function showDownloads(card) {
-  const link = card.querySelector('a.download');
+async function refreshDownload(card, link) {
   const label = card.querySelector('.download-count');
-  const url = new URL(link.href);
-  const parts = url.pathname.split('/');
-  if (url.hostname !== 'github.com' || parts.length !== 7 ||
-      parts[3] !== 'releases' || parts[4] !== 'download') return;
-
+  const pinned = new URL(link.href);
+  const [, owner, repo] = pinned.pathname.split('/');
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
     const response = await fetch(
-      'https://api.github.com/repos/' + parts[1] + '/' + parts[2] + '/releases/tags/' + parts[5],
-      {signal: controller.signal}
+      'https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest',
+      {signal: controller.signal, cache: 'no-cache'}
     );
     if (!response.ok) throw new Error('Release indisponível');
     const release = await response.json();
-    const installer = release.assets.find(asset => asset.browser_download_url === url.href);
-    const count = installer?.download_count;
+    const prefix = pinned.origin + '/' + owner + '/' + repo + '/releases/download/' +
+      encodeURIComponent(release.tag_name) + '/';
+    const installers = release.assets.filter(asset =>
+      asset.state === 'uploaded' && /setup/i.test(asset.name) && /x64/i.test(asset.name) &&
+      /\.exe$/i.test(asset.name) && asset.browser_download_url === prefix + encodeURIComponent(asset.name)
+    );
+    if (installers.length !== 1) throw new Error('Instalador indisponível');
+    const installer = installers[0];
+    link.href = installer.browser_download_url;
+    card.querySelector('.version').textContent = release.tag_name;
+    const count = installer.download_count;
     if (!Number.isSafeInteger(count) || count < 0) throw new Error('Contagem indisponível');
     label.textContent = numberFormat.format(count) + (count === 1 ? ' download' : ' downloads') + ' desta versão';
   } catch {
-    label.textContent = 'Contagem de downloads indisponível';
+    label.textContent = 'Consulta ao GitHub indisponível. Download da versão indicada acima.';
   } finally {
     clearTimeout(timeout);
   }
 }
-document.querySelectorAll('.card').forEach(showDownloads);</script></body></html>
+
+for (const card of document.querySelectorAll('.card')) {
+  const link = card.querySelector('a.download');
+  const ready = refreshDownload(card, link);
+  let pending = true;
+  let waitingForDownload = false;
+  ready.then(() => { pending = false; });
+  link.addEventListener('click', async event => {
+    if (!pending || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault();
+    if (waitingForDownload) return;
+    waitingForDownload = true;
+    card.querySelector('.download-count').textContent = 'Conferindo a versão para baixar…';
+    await ready;
+    window.location.assign(link.href);
+  });
+}</script></body></html>

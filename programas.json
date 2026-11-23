@@ -1,34 +1,34 @@
 [
   {
     "name": "Eagle Eyes",
-    "version": "1.2.2",
+    "version": "1.4.0",
     "category": "Gravação de tela",
     "icon": "eagle-eyes.png",
     "summary": "Capture um monitor ou apenas a região do teste. Pause quando precisar e salve a evidência em um único MP4 sem áudio.",
     "repo": "Eagle-Eyes",
-    "file": "EagleEyes-1.2.2-win-x64-Setup.exe",
+    "file": "EagleEyes-1.4.0-win-x64-Setup.exe",
     "steps": [
       "Nas configurações, escolha a pasta onde as gravações serão salvas.",
       "Abra a seleção. Arraste para marcar uma área ou pressione Espaço para selecionar a tela inteira do monitor onde está o ponteiro.",
       "Clique em Gravar. Use Pausar e Retomar para pular esperas. Parar e salvar reúne os trechos em um só vídeo."
     ],
-    "downloadUrl": "https://github.com/OVinicius1995/Eagle-Eyes/releases/download/v1.2.2/EagleEyes-1.2.2-win-x64-Setup.exe",
+    "downloadUrl": "https://github.com/OVinicius1995/Eagle-Eyes/releases/download/v1.4.0/EagleEyes-1.4.0-win-x64-Setup.exe",
     "installNote": "A primeira instalação precisa de internet para preparar os componentes de vídeo."
   },
   {
     "name": "Jira Video Compressor",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "category": "Compressão automática",
     "icon": "roller.svg",
     "summary": "O Jira da equipe aceita vídeos de até 20 MB por anexo. Para gravações maiores, o Compressor gera uma cópia menor em segundo plano e preserva o original.",
     "repo": "Compressor",
-    "file": "Compressor-0.3.0-Setup-x64.exe",
+    "file": "Compressor-0.4.0-Setup-x64.exe",
     "steps": [
       "Escolha a pasta de entrada e uma pasta diferente para os resultados. Clique em Salvar e iniciar. Você pode fechar a janela e acompanhar o programa pela bandeja do Windows.",
-      "Na versão 0.3.0, o Compressor espera a gravação terminar. Ele copia arquivos de até 10 MB e compacta os maiores em MP4 sem áudio, com alvo de 9,5 MB.",
+      "Por padrão, o Compressor copia os vídeos de até 20 MB sem recodificar. Acima desse limite, gera um MP4 sem áudio com alvo de 19 MB.",
       "O programa confere o limite antes de liberar o resultado e avisa quando estiver pronto. O processamento é local, sem enviar a gravação a um site."
     ],
-    "downloadUrl": "https://github.com/OVinicius1995/Compressor/releases/download/v0.3.0/Compressor-0.3.0-Setup-x64.exe",
+    "downloadUrl": "https://github.com/OVinicius1995/Compressor/releases/download/v0.4.0/Compressor-0.4.0-Setup-x64.exe",
     "installNote": "A primeira instalação precisa de internet para preparar os componentes de vídeo."
   }
 ]
